@@ -87,5 +87,5 @@ modify AllowOveride to All in /etc/apache2/apache2.conf:
 /usr/local/sbin/set_on_boot.sh
 
 # say ip script and supporting script - copy from git:
-/usr/local/sbin/say_ip.sh
+/usr/local/sbin/sayip.sh
 /usr/local/sbin/speaktext.sh
