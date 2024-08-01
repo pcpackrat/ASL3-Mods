@@ -4,7 +4,7 @@
 # Script to speak letters and numbers from asterisk sounds
 # over a radio node using simpleusb
 # by Ramon Gonzalez KP4TR 2014
-# modified for ASL 2.0 on Debian 12 by Michael Champion N5ZR 2023
+# modified for ASL 3.0 on Debian 12 by Michael Champion N5ZR 2024
 
 #set -xv
 
