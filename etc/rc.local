@@ -1,0 +1,2 @@
+/usr/local/bin/start_hostapd.sh
+/usr/local/sbin/set_on_boot.sh
