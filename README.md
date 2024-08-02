@@ -8,12 +8,17 @@ sudo apt-get install hostapd dnsmasq telnet traceroute git php libapache2-mod-ph
 # Set openvpn to start at boot:
 systemctl enable openvpn-client@client
 
-# Copy openvpn web upload from git:
+# Copy web files from git:
+cp ASL3-Mods/var/www/html/* /var/www/html
+
 /var/www/html/vpn.html
 /var/www/html/upload.php
+/var/www/html/create_config.php
+/var/www/html/scan_wifi.py
+/var/www/html/logon.php
 
 # change group of /etc/openvpn/client to www-data and add write permission to group
-chown root.www-data /etc/openvpn/client
+chown root:www-data /etc/openvpn/client
 chmod g+w /etc/openvpn/client
 
 # Allow www-data to access network devices:
@@ -26,34 +31,33 @@ www-data ALL=(ALL) NOPASSWD: /usr/sbin/reboot
 
 
 
-Copy autoAP script from git:
-/usr/local/bin/start_hostapd.sh
+# Copy and make executable autoAP script from git:
+cp ASL3-Mods/usr/local/bin/start_hostap.sh /usr/local/bin/
+chmod +x start_hostap.sh
 
-# Copy AutoAP components from git:
-/etc/init.d/autohotspot:
-
-# Make it executable
-chmod +x autohotspot
+# Copy and make executable AutoAP components from git:
+cp ASL3-Mods/etc/init.d/autohotspot /etc/init.d/
+chmod +x /etc/init.d/autohotspot
 
 
 Copy hostapd.service from git:
 /usr/lib/systemd/system/hostapd.service
 
-# unmask hostapd.service
+# unmask and disable hostapd.service
 systemctl unmask hostapd.service
 
-#  Open firewall ports for dhcp/boot and DNS in the web admin
+systemctl disable hostapd.service
 
-# Cop WiFi Scan web pages from git
-/var/www/html/create_config.php
-/var/www/html/scan_wifi.py
-/var/www/html/logon.php
+# copy dnsmasq.conf from git
+cp ASL3-Mods/etc/dnsmasq.conf /etc/cd /et        
+
+# Open firewall ports for dhcp and DNS in the web admin
 
 # modify apache to load the logon.php for android and apple online checks:
 
-Edit /etc/apache2/sites-available/000-default.conf
+# Edit /etc/apache2/sites-available/000-default.conf
 
-# Add to <VirtualHost *:80> section
+Add to <VirtualHost *:80> section
 
 -----------------------------------
 RewriteEngine On
@@ -67,8 +71,7 @@ RewriteRule ^/generate_204$ /logon.php [L,R=302]
 # Redirect Windows devices for captive portal detection
 RewriteRule ^/ncsi.txt$ /logon.php [L,R=302]
 
-Symlink autohotspot.conf to the conf-enabled folder
-------------------------------------
+-----------------------------------
 
 
 
@@ -84,8 +87,23 @@ modify AllowOveride to All in /etc/apache2/apache2.conf:
 
 # Change frequency on boot base on /root/SA818.log file - copy files from git"
 /root/SA818.log
-/usr/local/sbin/set_on_boot.sh
 
-# say ip script and supporting script - copy from git:
+
+# copy sbin files from git:
+cp ASL3-Mods/usr/local/sbin/* /usr/local/sbin/
+
+/usr/local/sbin/set_on_boot.sh
 /usr/local/sbin/sayip.sh
 /usr/local/sbin/speaktext.sh
+
+# Make them executable:
+chmod +x sayip.sh
+chmod +x set_on_boot.sh
+chmod +x speaktext.sh
+
+# add the following to rc.local:
+
+/usr/local/bin/start_hostapd.sh
+
+/usr/local/sbin/set_on_boot.sh
+
