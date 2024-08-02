@@ -60,6 +60,7 @@ cp ASL3-Mods/etc/dnsmasq.conf /etc/cd /et
 Add to <VirtualHost *:80> section
 
 -----------------------------------
+
 RewriteEngine On
 
 # Redirect Apple devices for captive portal detection
