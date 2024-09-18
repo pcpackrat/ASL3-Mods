@@ -11,6 +11,7 @@ loop option to run it as a service and loop at 10 second or more intervals
 
 quiet option to supress any output
 
+# Turn on COS LED on equiped nodes
 [events]
 
 cop,62,GPIO4:1 = c|t|RPT_RXKEYED
