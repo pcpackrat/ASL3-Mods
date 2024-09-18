@@ -3,7 +3,7 @@ Useful for disconnecting nodes that forget to disconnect from a previous system 
 
 Has the following options:
 
-Whitelist file option to allow privat nodes.  May just want to put 1990-1995 in here.  1 node per line
+Whitelist file option to allow private nodes on the remote end.  May just want to put 1990-1995 in here.  1 node per line
 
 ignorelist file option to ignore your locally connected private nodes
 
